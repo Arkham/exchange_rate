@@ -30,6 +30,12 @@ module ExchangeRate
           @cache = nil
         end
 
+        def currencies
+          @cache ||= exchange_rate_map
+          date, map_for_date = @cache.first
+          map_for_date.keys
+        end
+
       private
 
         def exchange_rate_map

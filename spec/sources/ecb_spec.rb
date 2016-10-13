@@ -77,4 +77,24 @@ describe ExchangeRate::Sources::ECB do
       end
     end
   end
+
+  describe "::currencies" do
+    let(:map) do
+      {
+        "2016-10-12" => {
+          "EUR" => 1.0,
+          "USD" => 2.0,
+          "GBP" => 0.5
+        }
+      }
+    end
+
+    before do
+      allow(described_class).to receive(:exchange_rate_map).and_return(map)
+    end
+
+    it 'returns a list of currencies' do
+      expect(described_class.currencies).to eq(%w(EUR USD GBP))
+    end
+  end
 end

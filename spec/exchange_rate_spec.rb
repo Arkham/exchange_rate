@@ -25,4 +25,14 @@ describe ExchangeRate do
       expect{ described_class.at(future_date, "EUR", "USD") }.to raise_error(ArgumentError)
     end
   end
+
+  describe "::currencies" do
+    before do
+      ExchangeRate::Sources::ECB.feed_path = File.expand_path('../fixtures/sources/ecb.xml', __FILE__)
+    end
+
+    it "returns a list of currencies" do
+      expect(described_class.currencies).to eq(%w(EUR USD JPY BGN CZK DKK GBP HUF PLN RON SEK CHF NOK HRK RUB TRY AUD BRL CAD CNY HKD IDR ILS INR KRW MXN MYR NZD PHP SGD THB ZAR))
+    end
+  end
 end
